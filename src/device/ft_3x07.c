@@ -100,7 +100,7 @@ static void ft_write(touch_drv_t driver, struct rt_i2c_bus_device *i2c_bus, rt_u
 
 static void ft_isr_enable(rt_bool_t enable)
 {
-    rt_pin_irq_enable(BSP_TOUCH_INT_PIN, enable);
+    rt_pin_irq_enable(PKG_TOUCH_INT_PIN, enable);
 }
 
 static void ft_touch_isr(void *parameter)
