@@ -136,6 +136,11 @@ static void touch_thread_entry(void *parameter)
             default:
                 break;
             }
+
+#ifdef DBG_ENABLE
+            LOG_I("x:[%3d] y:[%3d]",msg.x,msg.y);
+            LOG_E("Please turn off the debug option after the test passes, otherwise it will affect the performance.");
+#endif
             rt_thread_delay(RT_TICK_PER_SECOND / PKG_TOUCH_SAMPLE_HZ);
         }
         touch->ops->isr_enable(RT_TRUE);

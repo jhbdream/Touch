@@ -139,8 +139,8 @@ static rt_err_t ft_read_point(touch_msg_t msg)
         return RT_ERROR;
     }
 
-    msg->y = (point[0]&0x0F) << 8 | point[1];
-    msg->x = (point[2]&0x0F) << 8 | point[3];
+    msg->x = (point[0]&0x0F) << 8 | point[1];
+    msg->y = (point[2]&0x0F) << 8 | point[3];
     if (s_tp_down)
     {
         msg->event = TOUCH_EVENT_MOVE;
@@ -184,14 +184,14 @@ static rt_bool_t ft_probe(struct rt_i2c_bus_device *i2c_bus)
     uint8_t cid = 0xFF;
 
     ft_i2c_bus = i2c_bus;
-    err = ft_read(ft_i2c_bus, 0xA3, (uint8_t *)&cid, 1);
+    err = ft_read(ft_i2c_bus, CHIP_ID_REG, (uint8_t *)&cid, 1);
     if (err < 0)
     {
         LOG_E("%s failed: %d", __func__, err);
         return RT_FALSE;
     }
     LOG_I("touch CID:%02X", cid);
-    if(cid == 0x54)
+    if(cid == CHIP_ID_VALUE)
     {
         return RT_TRUE;
     }
