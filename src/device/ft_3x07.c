@@ -159,8 +159,8 @@ static void ft_init(struct rt_i2c_bus_device *i2c_bus)
         ft_i2c_bus = i2c_bus;
     }
 
-    rt_pin_mode(BSP_TOUCH_INT_PIN, PIN_MODE_INPUT_PULLUP);
-    rt_pin_attach_irq(BSP_TOUCH_INT_PIN, PIN_IRQ_MODE_FALLING, ft_touch_isr, RT_NULL);
+    rt_pin_mode(PKG_TOUCH_INT_PIN, PIN_MODE_INPUT_PULLUP);
+    rt_pin_attach_irq(PKG_TOUCH_INT_PIN, PIN_IRQ_MODE_FALLING, ft_touch_isr, RT_NULL);
 
     rt_thread_mdelay(200);
 }

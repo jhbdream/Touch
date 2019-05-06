@@ -15,7 +15,7 @@ if GetDepend(['PKG_USING_TOUCH']):
 if GetDepend(['FT3X07']):
     src += Glob('src/device/ft_3x07.c')
 
-CPPPATH += [cwd]
+CPPPATH += [cwd + '/src']
 
 group = DefineGroup('Touch', src, depend = ['PKG_USING_TOUCH'], CPPPATH = CPPPATH, LOCAL_CCFLAGS = LOCAL_CCFLAGS, CPPDEFINES = CPPDEFINES)
 Return('group')
