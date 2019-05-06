@@ -175,7 +175,9 @@ static int rt_touch_thread_init(void)
     }
     if (current_driver == RT_NULL)
     {
+#ifdef DBG_ENABLE
         LOG_E("no touch screen or do not have driver\r\n");
+#endif
         rt_device_close((rt_device_t)i2c_bus);
         return -1;
     }
@@ -183,7 +185,9 @@ static int rt_touch_thread_init(void)
     RT_ASSERT(touch_isr_sem);
 
     current_driver->ops->init(i2c_bus);
+#ifdef DBG_ENABLE
     LOG_I("touch screen found driver\r\n");
+#endif
     tid = rt_thread_create("touch", touch_thread_entry, current_driver, 2048, 27, 20);
     if (tid == RT_NULL)
     {
