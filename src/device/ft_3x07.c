@@ -28,7 +28,7 @@
 #endif
 
 #define IIC_RETRY_NUM 2
-
+#define TOUCH_INT_PIN 34
 #define CHIP_ID_REG                 0xA8U
 #define CHIP_ID_VALUE               0x11U
 #define TOUCH_SLAVE_ADDR            0x38U
@@ -100,7 +100,7 @@ static void ft_write(touch_drv_t driver, struct rt_i2c_bus_device *i2c_bus, rt_u
 
 static void ft_isr_enable(rt_bool_t enable)
 {
-    rt_pin_irq_enable(PKG_TOUCH_INT_PIN, enable);
+    rt_pin_irq_enable(TOUCH_INT_PIN, enable);
 }
 
 static void ft_touch_isr(void *parameter)
@@ -159,8 +159,8 @@ static void ft_init(struct rt_i2c_bus_device *i2c_bus)
         ft_i2c_bus = i2c_bus;
     }
 
-    rt_pin_mode(PKG_TOUCH_INT_PIN, PIN_MODE_INPUT_PULLUP);
-    rt_pin_attach_irq(PKG_TOUCH_INT_PIN, PIN_IRQ_MODE_FALLING, ft_touch_isr, RT_NULL);
+    rt_pin_mode(TOUCH_INT_PIN, PIN_MODE_INPUT_PULLUP);
+    rt_pin_attach_irq(TOUCH_INT_PIN, PIN_IRQ_MODE_FALLING, ft_touch_isr, RT_NULL);
 
     rt_thread_mdelay(200);
 }
