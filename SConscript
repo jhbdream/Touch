@@ -13,7 +13,7 @@ if GetDepend(['PKG_USING_TOUCH']):
     src += Glob('src/touch.c')
     
 if GetDepend(['FT3x07']):
-    src += Glob('src/device/ft3x07.c')
+    src += Glob('src/device/ft_3x07.c')
 
 CPPPATH += [cwd]
 
