@@ -72,7 +72,7 @@ Set the IIC bus device name
 ```c
 #define	TOUCH_INT_PIN					定义触摸芯片外部中断引脚编号
 #define	CHIP_ID_REG						定义触摸芯片ID寄存器地址
-#define	CHIP_ID_VALUE					定义触摸芯片ID寄存器的值
+#define CHIP_ID_VALUE					定义触摸芯片ID寄存器的值
 #define	TOUCH_SLAVE_ADDR				定义触摸芯片从机设备IIC地址
 ```
 
