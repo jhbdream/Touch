@@ -21,8 +21,8 @@
 
 ```
 -> RT-Thread online packages                                                                        
-	-> system packages
-		-> Touch
+    -> system packages
+        -> Touch
 ```
 
 - 选择自己的触摸IC,如果没有可以自己添加适配并提交（后面附教程）
@@ -70,10 +70,10 @@ Set the IIC bus device name
 #### 1.修改一下宏定义
 
 ```c
-#define	TOUCH_INT_PIN					定义触摸芯片外部中断引脚编号
-#define	CHIP_ID_REG						定义触摸芯片ID寄存器地址
-#define CHIP_ID_VALUE					定义触摸芯片ID寄存器的值
-#define	TOUCH_SLAVE_ADDR				定义触摸芯片从机设备IIC地址
+#define	TOUCH_INT_PIN                   定义触摸芯片外部中断引脚编号
+#define	CHIP_ID_REG                     定义触摸芯片ID寄存器地址
+#define CHIP_ID_VALUE                   定义触摸芯片ID寄存器的值
+#define	TOUCH_SLAVE_ADDR                定义触摸芯片从机设备IIC地址
 ```
 
 #### 2.实现函数 read_point
@@ -123,11 +123,11 @@ if GetDepend(['DEVICE_NAME']):
 menu "Select Touch IC"
 
     config FT3X07
-    	bool "ft3x07"
+        bool "ft3x07"
 
     //添加如下内容 用于在menuconfig中启动配置
     config DEVICE_NAME
-    	bool "DEVICE_NAME"
+        bool "DEVICE_NAME"
 
 endmenu   
 ```
