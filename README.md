@@ -7,7 +7,7 @@
 |名称|说明|
 |---|---|
 | src|源程序目录|
-| |移植其他触摸芯片示例文件|
+| port |移植其他触摸芯片示例文件|
 
 
 
@@ -52,7 +52,7 @@ Set the IIC bus device name
 
 打开配置好的KEIL工程，在分组Touch中有我们的程序源代码
 
-- **在源代码中开启宏定义 `DBG_ENABLE` 选项时，会在msh窗口打印触摸坐标点用于测试当前驱动是否正常工作 **
+- **在源代码中开启宏定义 `DBG_ENABLE` 选项时，会在msh窗口打印触摸坐标点用于测试当前驱动是否正常工作**
 
 - **测试完毕之后，建议关闭此选项重新编译工程，因为在调试信息打印过程中会占用部分处理器资源**
 
@@ -70,10 +70,10 @@ Set the IIC bus device name
 #### 1.修改一下宏定义
 
 ```c
-#define	TOUCH_INT_PIN			  		定义触摸芯片外部中断引脚编号
+#define	TOUCH_INT_PIN					定义触摸芯片外部中断引脚编号
 #define	CHIP_ID_REG						定义触摸芯片ID寄存器地址
-#define	CHIP_ID_VALUE       		   	定义触摸芯片ID寄存器的值
-#define	TOUCH_SLAVE_ADDR  			 	定义触摸芯片从机设备IIC地址
+#define	CHIP_ID_VALUE					定义触摸芯片ID寄存器的值
+#define	TOUCH_SLAVE_ADDR				定义触摸芯片从机设备IIC地址
 ```
 
 #### 2.实现函数 read_point
@@ -98,7 +98,7 @@ struct touch_message
 read_point 函数需要实现的功能是读取触摸位置，以及判读触摸事件类型
 
 触摸事件包含以下四种类型
-```
+```c
 #define TOUCH_EVENT_UP      抬起事件
 #define TOUCH_EVENT_DOWN    按下事件
 #define TOUCH_EVENT_MOVE    移动事件
@@ -107,7 +107,7 @@ read_point 函数需要实现的功能是读取触摸位置，以及判读触摸
 
 ### 3.修改SConscript文件内容
 在SConscript文件中添加如下代码 用于在在编译时添加选中的的设备驱动文件
-```c
+```python
     
 if GetDepend(['DEVICE_NAME']):
     src += Glob('src/device/DEVICE_NAME.c')
@@ -120,19 +120,21 @@ if GetDepend(['DEVICE_NAME']):
 本文件描述了了 `menuconfig` 的配置信息
 
 ```python
-    menu "Select Touch IC"
+menu "Select Touch IC"
 
-            config FT3X07
-                bool "ft3x07"
-			
-			//添加如下内容 用于在menuconfig中启动配置
-			config DEVICE_NAME
-			bool "DEVICE_NAME"
+    config FT3X07
+    	bool "ft3x07"
 
-            endmenu   
+    //添加如下内容 用于在menuconfig中启动配置
+    config DEVICE_NAME
+    	bool "DEVICE_NAME"
+
+endmenu   
 ```
 
-### 5.完成以上的移植部分之后，可以在本地进行相关测试，测试通过之后，可以在GitHub中发起合并请求合并到我们的软件包中
+
+
+### 完成以上的移植部分之后，可以在本地进行相关测试，测试通过之后，可以在GitHub中发起合并请求合并到我们的软件包中
 
 
 
