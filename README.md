@@ -7,10 +7,14 @@
 |名称|说明|
 |---|---|
 | src|源程序目录|
+| |移植其他触摸芯片示例文件|
+
+
 
 ### 1.2 依赖
-- IIC总线设备
-- 外部中断IO
+
+- **IIC总线设备** 用于通信 
+- **外部中断引脚** 用于触发读取触摸中断
 
 ## 2.如何使用
 - 使用 `menuconfig` 使能**Touch**软件包
@@ -65,15 +69,15 @@ Set the IIC bus device name
 ### 代码修改
 #### 1.修改一下宏定义
 
+```c
+#define	TOUCH_INT_PIN			  		定义触摸芯片外部中断引脚编号
+#define	CHIP_ID_REG						定义触摸芯片ID寄存器地址
+#define	CHIP_ID_VALUE       		   	定义触摸芯片ID寄存器的值
+#define	TOUCH_SLAVE_ADDR  			 	定义触摸芯片从机设备IIC地址
 ```
-#define	TOUCH_INT_PIN			  	触摸芯片外部中断引脚编号
-#define	CHIP_ID_REG					触摸芯片ID寄存器地址
-#define	CHIP_ID_VALUE       		   触摸芯片ID寄存器的值
-#define	TOUCH_SLAVE_ADDR  			 触摸芯片从机设备IIC地址
-``` 
 
 #### 2.实现函数 read_point
-```
+```c
 /**
   * @brief  读取触摸坐标信息 返回到 touch_msg 结构体
   * @param  触摸信息结构
@@ -102,8 +106,8 @@ read_point 函数需要实现的功能是读取触摸位置，以及判读触摸
 ```
 
 ### 3.修改SConscript文件内容
-添加如下代码 用于在编译时添加相关文件
-```
+在SConscript文件中添加如下代码 用于在在编译时添加选中的的设备驱动文件
+```c
     
 if GetDepend(['DEVICE_NAME']):
     src += Glob('src/device/DEVICE_NAME.c')
@@ -113,18 +117,23 @@ if GetDepend(['DEVICE_NAME']):
 ### 4.修改ENV目录中PACKAGE的配置文件 KCONFIG
 在`\packages\system\kconfig`文件中添加如下内容
 
-```
+本文件描述了了 `menuconfig` 的配置信息
+
+```python
     menu "Select Touch IC"
 
             config FT3X07
                 bool "ft3x07"
 			
 			//添加如下内容 用于在menuconfig中启动配置
-            config DEVICE_NAME
-                bool "DEVICE_NAME"
+			config DEVICE_NAME
+			bool "DEVICE_NAME"
 
             endmenu   
 ```
+
+### 5.完成以上的移植部分之后，可以在本地进行相关测试，测试通过之后，可以在GitHub中发起合并请求合并到我们的软件包中
+
 
 
 # 5.联系方式
